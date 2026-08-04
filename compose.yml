@@ -1,0 +1,100 @@
+services:
+
+  context-provider:
+    image: nginx:alpine
+    hostname: context
+    container_name: sc-context-provider
+    volumes:
+      - ./context:/usr/share/nginx/html:ro
+    ports:
+      - "3004:80"
+    networks:
+      - smart-campus
+
+  mongo-db:
+    image: mongo:4.4
+    hostname: mongo-db
+    container_name: sc-mongo-db
+    command: --nojournal
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-db-data:/data/db
+    networks:
+      - smart-campus
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  orion:
+    image: fiware/orion-ld
+    hostname: orion
+    container_name: sc-orion
+    depends_on:
+      - mongo-db
+    expose:
+      - "1026"
+    ports:
+      - "1026:1026"
+    command: -dbhost mongo-db -logLevel DEBUG
+    networks:
+      - smart-campus
+    healthcheck:
+      test: curl --fail -s http://orion:1026/version || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    hostname: mosquitto
+    container_name: sc-mosquitto
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./iot-agent/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+    networks:
+      - smart-campus
+
+  iot-agent:
+    image: fiware/iotagent-json
+    hostname: iot-agent
+    container_name: sc-iot-agent
+    depends_on:
+      - mongo-db
+      - orion
+      - mosquitto
+      - context-provider
+    expose:
+      - "4041"
+      - "7896"
+    ports:
+      - "4041:4041"
+      - "7896:7896"
+    environment:
+      - IOTA_CB_HOST=orion
+      - IOTA_CB_PORT=1026
+      - IOTA_CB_NGSI_VERSION=ld
+      - IOTA_NORTH_PORT=4041
+      - IOTA_HTTP_PORT=7896
+      - IOTA_REGISTRY_TYPE=mongodb
+      - IOTA_MONGO_URI=mongodb://mongo-db:27017/iotagentjson
+      - IOTA_PROVIDER_URL=http://iot-agent:4041
+      - IOTA_MQTT_HOST=mosquitto
+      - IOTA_MQTT_PORT=1883
+      - IOTA_DEFAULT_RESOURCE=/iot/json
+      - IOTA_JSON_LD_CONTEXT=http://context/campus-context.jsonld
+      - IOTA_FALLBACK_TENANT=openiot
+      - IOTA_AUTOCAST=true
+      - IOTA_LOG_LEVEL=DEBUG
+    networks:
+      - smart-campus
+
+networks:
+  smart-campus:
+    driver: bridge
+
+volumes:
+  mongo-db-data: ~
