@@ -1,0 +1,24 @@
+{
+  "devices": [
+    {
+      "device_id": "sim-room-101",
+      "entity_name": "urn:ngsi-ld:IndoorEnvironmentObserved:B1-101-sensor01",
+      "entity_type": "IndoorEnvironmentObserved",
+      "apikey": "sc2026json01",
+      "transport": "MQTT",
+      "attributes": [
+        { "object_id": "t", "name": "temperature", "type": "Property",
+          "metadata": { "unitCode": { "type": "Text", "value": "CEL" } } },
+        { "object_id": "h", "name": "humidity", "type": "Property",
+          "metadata": { "unitCode": { "type": "Text", "value": "P1" } } },
+        { "object_id": "p", "name": "pressure", "type": "Property",
+          "metadata": { "unitCode": { "type": "Text", "value": "A97" } } },
+        { "object_id": "c", "name": "co2", "type": "Property",
+          "metadata": { "unitCode": { "type": "Text", "value": "59" } } }
+      ],
+      "static_attributes": [
+        { "name": "refRoom", "type": "Relationship", "value": "urn:ngsi-ld:Room:B1-101" }
+      ]
+    }
+  ]
+}

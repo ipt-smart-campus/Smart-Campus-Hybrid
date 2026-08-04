@@ -1,0 +1,10 @@
+{
+  "services": [
+    {
+      "apikey": "sc2026json01",
+      "cbroker": "http://orion:1026",
+      "entity_type": "IndoorEnvironmentObserved",
+      "resource": "/iot/json"
+    }
+  ]
+}
