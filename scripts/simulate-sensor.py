@@ -1,5 +1,5 @@
 """
-Simulador de sensor indoor (substitui o Pico W + BME280/MQ135 por agora).
+Simulador de sensor.
 Publica leituras periódicas para o tópico MQTT que o IoT Agent JSON espera:
   /json/<apikey>/<device_id>/attrs
 
