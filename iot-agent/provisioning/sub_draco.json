@@ -1,0 +1,19 @@
+{
+  "description": "Subscription: push Device updates to Draco (NiFi ListenHTTP)",
+  "type": "Subscription",
+  "entities": [
+    {
+      "type": "Device"
+    }
+  ],
+  "watchedAttributes": ["temperature", "humidity"],
+  "notification": {
+    "attributes": ["temperature", "humidity", "dateObserved"],
+    "format": "normalized",
+    "endpoint": {
+      "uri": "http://draco:5050/notify",
+      "accept": "application/json"
+    }
+  },
+  "@context": "http://context/campus-context.jsonld"
+}
