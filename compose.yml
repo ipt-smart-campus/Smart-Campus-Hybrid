@@ -141,9 +141,57 @@ services:
     networks:
       - smart-campus
 
+  billing:
+    build: ./microservices
+    hostname: billing
+    container_name: sc-billing
+    command: ["python", "-u", "billing/main.py"]
+    environment:
+      - KAFKA_BROKERS=kafka:9092
+      - KAFKA_TOPIC=context.device
+    depends_on:
+      - kafka
+    volumes:
+      - billing-data:/app/data
+    networks:
+      - smart-campus
+
+  analytics:
+    build: ./microservices
+    hostname: analytics
+    container_name: sc-analytics
+    command: ["python", "-u", "analytics/main.py"]
+    environment:
+      - KAFKA_BROKERS=kafka:9092
+      - KAFKA_TOPIC=context.device
+    depends_on:
+      - kafka
+    volumes:
+      - analytics-data:/app/data
+    networks:
+      - smart-campus
+
+  notifications:
+    build: ./microservices
+    hostname: notifications
+    container_name: sc-notifications
+    command: ["python", "-u", "notifications/main.py"]
+    environment:
+      - KAFKA_BROKERS=kafka:9092
+      - KAFKA_TOPIC=context.device
+    depends_on:
+      - kafka
+    volumes:
+      - notifications-data:/app/data
+    networks:
+      - smart-campus
+
 networks:
   smart-campus:
     driver: bridge
 
 volumes:
   mongo-db-data: ~
+  billing-data: ~
+  analytics-data: ~
+  notifications-data: ~
