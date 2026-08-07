@@ -1,7 +1,7 @@
 #!/bin/bash
 # test-fase3-draco.sh
 # Testa o pipeline Orion -> Draco (NiFi) -> Kafka
-# Rode a partir da raiz do projeto (Smart-Campus-Hybrid
+# Rode a partir da raiz do projeto (Smart-Campus-Hybrid)
 set -e
 
 ORION_URL="http://localhost:1026"
@@ -33,7 +33,8 @@ curl -s -X PATCH "${ORION_URL}/ngsi-ld/v1/entities/${ENTITY_ID}/attrs" \
 echo -e "\n"
 
 echo "4) Lendo mensagens do tópico Kafka '${KAFKA_TOPIC}' (Ctrl+C para sair)..."
-docker exec -it sc-kafka /opt/kafka/bin/kafka-console-consumer.sh \
+# MSYS_NO_PATHCONV=1 evita que o Git Bash "traduza" /opt/kafka/... pra um caminho Windows
+MSYS_NO_PATHCONV=1 docker exec -it sc-kafka /opt/kafka/bin/kafka-console-consumer.sh \
   --bootstrap-server localhost:9092 \
   --topic "${KAFKA_TOPIC}" \
   --from-beginning \

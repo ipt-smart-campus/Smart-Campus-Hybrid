@@ -1,14 +1,14 @@
 {
-  "description": "Subscription: push Device updates to Draco (NiFi ListenHTTP)",
+  "description": "Subscription: push IndoorEnvironmentObserved updates to Draco (NiFi ListenHTTP)",
   "type": "Subscription",
   "entities": [
     {
-      "type": "Device"
+      "type": "IndoorEnvironmentObserved"
     }
   ],
-  "watchedAttributes": ["temperature", "humidity"],
+  "watchedAttributes": ["temperature", "humidity", "pressure", "co2"],
   "notification": {
-    "attributes": ["temperature", "humidity", "dateObserved"],
+    "attributes": ["temperature", "humidity", "pressure", "co2", "refRoom"],
     "format": "normalized",
     "endpoint": {
       "uri": "http://draco:5050/notify",
