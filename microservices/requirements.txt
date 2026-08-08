@@ -1,0 +1,2 @@
+confluent-kafka==2.4.0
+jsonschema==4.22.0
