@@ -7,4 +7,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["python", "-u", "billing/main.py"]
+# comando real é definido por serviço no compose.yml (command: [...])
+CMD ["python", "-u", "-m", "billing.main"]
