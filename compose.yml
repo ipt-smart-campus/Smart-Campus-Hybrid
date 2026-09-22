@@ -195,6 +195,38 @@ services:
     networks:
       - smart-campus
 
+  grafana:
+    image: grafana/grafana:latest
+    container_name: sc-grafana
+    restart: unless-stopped
+    ports:
+      - "3002:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=yesoreyeram-infinity-datasource
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+    networks:
+      - smart-campus
+
+  simulator:
+    image: python:3.11-slim
+    container_name: sc-simulator
+    restart: unless-stopped
+    depends_on:
+      - mosquitto
+    working_dir: /app
+    volumes:
+      - ./scripts:/app
+    command: >
+      sh -c "pip install paho-mqtt -q &&
+              while true; do
+                python3 simulate-sensor.py --host sc-mosquitto --count 1 --interval 0;
+                sleep 30;
+              done"
+
 networks:
   smart-campus:
     driver: bridge
@@ -211,3 +243,4 @@ volumes:
   draco-provenance-repository: ~
   draco-state: ~
   draco-logs: ~
+  grafana_data: ~

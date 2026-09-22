@@ -1,0 +1,9 @@
+apiVersion: 1
+datasources:
+  - name: Orion
+    uid: orion-infinity
+    type: yesoreyeram-infinity-datasource
+    isDefault: true
+    jsonData:
+      tlsSkipVerify: true
+    overwrite: true
