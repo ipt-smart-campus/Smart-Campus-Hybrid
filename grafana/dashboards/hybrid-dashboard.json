@@ -1,0 +1,195 @@
+{
+  "__inputs": [],
+  "__requires": [],
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "orion-infinity" },
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "thresholds" }, "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null }, { "color": "yellow", "value": 24 }, { "color": "red", "value": 28 } ] }, "unit": "celsius" },
+        "overrides": []
+      },
+      "gridPos": { "h": 6, "w": 6, "x": 0, "y": 0 },
+      "id": 1,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "auto", "textMode": "auto", "colorMode": "background", "graphMode": "none" },
+      "targets": [
+        {
+          "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "orion-infinity" },
+          "refId": "A",
+          "type": "json",
+          "source": "url",
+          "format": "table",
+          "url": "http://sc-orion:1026/ngsi-ld/v1/entities/urn:ngsi-ld:IndoorEnvironmentObserved:B1-101-sensor01?local=true",
+          "url_options": {
+            "method": "GET",
+            "headers": [
+              { "key": "NGSILD-Tenant", "value": "openiot" },
+              { "key": "Link", "value": "<http://context/campus-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"" },
+              { "key": "Accept", "value": "application/ld+json" }
+            ]
+          },
+          "root_selector": "",
+          "columns": [
+            { "selector": "temperature.value", "text": "Temperatura", "type": "number" }
+          ]
+        }
+      ],
+      "title": "Temperatura Actual",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "orion-infinity" },
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "thresholds" }, "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null }, { "color": "yellow", "value": 60 }, { "color": "red", "value": 80 } ] }, "unit": "percent" },
+        "overrides": []
+      },
+      "gridPos": { "h": 6, "w": 6, "x": 6, "y": 0 },
+      "id": 2,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "auto", "textMode": "auto", "colorMode": "background", "graphMode": "none" },
+      "targets": [
+        {
+          "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "orion-infinity" },
+          "refId": "A",
+          "type": "json",
+          "source": "url",
+          "format": "table",
+          "url": "http://sc-orion:1026/ngsi-ld/v1/entities/urn:ngsi-ld:IndoorEnvironmentObserved:B1-101-sensor01?local=true",
+          "url_options": {
+            "method": "GET",
+            "headers": [
+              { "key": "NGSILD-Tenant", "value": "openiot" },
+              { "key": "Link", "value": "<http://context/campus-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"" },
+              { "key": "Accept", "value": "application/ld+json" }
+            ]
+          },
+          "root_selector": "",
+          "columns": [
+            { "selector": "humidity.value", "text": "Humidade", "type": "number" }
+          ]
+        }
+      ],
+      "title": "Humidade Actual",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "orion-infinity" },
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "thresholds" }, "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null }, { "color": "yellow", "value": 800 }, { "color": "red", "value": 1000 } ] }, "unit": "ppm" },
+        "overrides": []
+      },
+      "gridPos": { "h": 6, "w": 6, "x": 12, "y": 0 },
+      "id": 3,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "auto", "textMode": "auto", "colorMode": "background", "graphMode": "none" },
+      "targets": [
+        {
+          "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "orion-infinity" },
+          "refId": "A",
+          "type": "json",
+          "source": "url",
+          "format": "table",
+          "url": "http://sc-orion:1026/ngsi-ld/v1/entities/urn:ngsi-ld:IndoorEnvironmentObserved:B1-101-sensor01?local=true",
+          "url_options": {
+            "method": "GET",
+            "headers": [
+              { "key": "NGSILD-Tenant", "value": "openiot" },
+              { "key": "Link", "value": "<http://context/campus-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"" },
+              { "key": "Accept", "value": "application/ld+json" }
+            ]
+          },
+          "root_selector": "",
+          "columns": [
+            { "selector": "co2.value", "text": "CO2", "type": "number" }
+          ]
+        }
+      ],
+      "title": "CO₂ Actual",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "orion-infinity" },
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "thresholds" }, "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null }, { "color": "yellow", "value": 1015 }, { "color": "red", "value": 1020 } ] }, "unit": "pressurehpa" },
+        "overrides": []
+      },
+      "gridPos": { "h": 6, "w": 6, "x": 18, "y": 0 },
+      "id": 4,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "auto", "textMode": "auto", "colorMode": "background", "graphMode": "none" },
+      "targets": [
+        {
+          "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "orion-infinity" },
+          "refId": "A",
+          "type": "json",
+          "source": "url",
+          "format": "table",
+          "url": "http://sc-orion:1026/ngsi-ld/v1/entities/urn:ngsi-ld:IndoorEnvironmentObserved:B1-101-sensor01?local=true",
+          "url_options": {
+            "method": "GET",
+            "headers": [
+              { "key": "NGSILD-Tenant", "value": "openiot" },
+              { "key": "Link", "value": "<http://context/campus-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"" },
+              { "key": "Accept", "value": "application/ld+json" }
+            ]
+          },
+          "root_selector": "",
+          "columns": [
+            { "selector": "pressure.value", "text": "Pressão", "type": "number" }
+          ]
+        }
+      ],
+      "title": "Pressão Actual",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "orion-infinity" },
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "palette-classic" }, "custom": { "lineWidth": 2, "fillOpacity": 10 }, "unit": "none" },
+        "overrides": []
+      },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 6 },
+      "id": 5,
+      "options": { "legend": { "calcs": [], "displayMode": "list", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
+      "targets": [
+        {
+          "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "orion-infinity" },
+          "refId": "A",
+          "type": "json",
+          "source": "url",
+          "format": "table",
+          "url": "http://sc-orion:1026/ngsi-ld/v1/entities?type=IndoorEnvironmentObserved&local=true",
+          "url_options": {
+            "method": "GET",
+            "headers": [
+              { "key": "NGSILD-Tenant", "value": "openiot" },
+              { "key": "Link", "value": "<http://context/campus-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"" },
+              { "key": "Accept", "value": "application/ld+json" }
+            ]
+          },
+          "root_selector": "$[*]",
+          "columns": [
+            { "selector": "id", "text": "Entidade", "type": "string" },
+            { "selector": "temperature.value", "text": "Temperatura", "type": "number" },
+            { "selector": "humidity.value", "text": "Humidade", "type": "number" },
+            { "selector": "co2.value", "text": "CO2", "type": "number" },
+            { "selector": "pressure.value", "text": "Pressão", "type": "number" }
+          ]
+        }
+      ],
+      "title": "Todas as Entidades — Estado Actual",
+      "type": "table"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 38,
+  "tags": ["smart-campus", "hybrid", "fiware", "ipt"],
+  "time": { "from": "now-1h", "to": "now" },
+  "timepicker": {},
+  "timezone": "Europe/Lisbon",
+  "title": "Smart Campus IPT — Híbrido",
+  "uid": "smart-campus-hybrid",
+  "version": 1
+}
